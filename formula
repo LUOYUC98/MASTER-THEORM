@@ -4,6 +4,25 @@ a = number of recurisve calls
 b = shrinkage size
 d = exponent in combining subproblems
 
+
+work at a single level j:
+number of subproblems = a^j
+size of per subproblem = n/(b^j)
+work needed for a single subproblem = [n/(b^j)]^d
+so totally there are a^j * [n/(b^j)]^d amount of work at level j
+after simplification, there are n^d * [a/b^d]^j
+
+so, totally there are logb(n) levels
+
+total amount of work = n^d * ∑([a/b^d]^j), cumulation of levels: (1, logb(n))
+
+if a = b^d, total amount of work = n^d * ∑(1) = n^d * logb(n)
+
+if not, substitude (a/b^d) by r, 1+r+r^2+......+r^k = r^(k+1)-1/r-1
+if r < 1, the geometric series approaches 1/(1-r) = c, total amount of work = n^d * c = n^d
+if r > 1, we can upper bound for the geometric series by 2*r^k, total amount of work =
+n^d * 2 * (a/b^d)^logb(n) = n^d * a^logb(n) * [b^(-d)*logb(n)] = n^d * a^logb(n)*n^(-d) = a^logb(n)
+
 T(n) = O(n^d*log(n))    if a = b^d
 T(n) = O(n^d)           if a < b^d
 T(n) = O(n^(logb(a)))   if a > b^d
